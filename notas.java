@@ -2,45 +2,40 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- *   Guarda las notas que han sacado una serie 
- *  de estudiantes en varias asignaturas
- *  
- */
+  * Salve as notas que fizeram uma série
+  * de alunos em várias disciplinas
+  *
+  */
 public class Curso
 {
-    private static final int MAX_ESTUDIANTES = 10;
-    private static final int MAX_ASIGNATURAS =  6;
+    private static final int MAX_ESTUDANTES = 10;
+    private static final int MAX_MATERIAS=  6;
     private int[][] notas;
-    private Random generador;
+    private Random gerador;
 
     /**
-     * Constructor  
+     * Construtor  
      */
     public Curso()   {
-        this.generador = new Random();
-        notas = new int[MAX_ESTUDIANTES][MAX_ASIGNATURAS];
+        this.gerador= new Random();
+        notas = new int[MAX_MATERIAS][MAX_MATERIAS];
         inicializar(notas);
     }
 
     /**
-     *  Inicializa el array con notas aleatorias entre 1 y 10 inclusive
-     *  Usaremos un generador
-     */
+      * Inicialize a matriz com notas aleatórias entre 1 e 10, inclusive
+      * Usaremos um gerador
+      */
     private void inicializar(int[][] notas)    {
         for (int fila = 0; fila <  notas.length; fila++)    {
             for (int col = 0; col <  notas[fila].length; col++)  {
-                notas[fila][col] = generador.nextInt(10) + 1;
+                notas[fila][col] = gerador.nextInt(10) + 1;
             }
         }
     }
 
-    /**
-     * Representación textual de las notas
-     * Cada nota formateada a 4 posiciones
-     * 
-     */
     public String toString() {
-        String strResul = "Notas del curso\n";
+        String strResul = "Notas do curso\n";
         for (int fila = 0; fila <  notas.length; fila++)    {
             for (int col = 0; col <  notas[fila].length; col++)  {
                 strResul += String.format("%4d", notas[fila][col]);
@@ -49,23 +44,22 @@ public class Curso
         }
         return strResul;
     }
-
     /**
-     *  Muestra en pantalla  
+     *  Exibir na tela 
      * 
      */
-    public void escribir( )
+    public void escrever( )
     {
         System.out.println(this.toString());
     }
 
     /**
      *  
-     *  Calcular la nota media por alumno
-     *  Recorrido por filas
+        * Calcule a nota média por aluno
+         * Passeio em linha
      * 
      */
-    public double[] calcularMediaPorAlumno()
+    public double[] calcularMediaPorAluno()
     {
         double[] medias = new double[notas.length];
         for (int fila = 0; fila < notas.length; fila++)    {
@@ -73,108 +67,99 @@ public class Curso
             for (int col = 0; col < notas[fila].length; col++)  {
                 suma += notas[fila][col];
             }
-            medias[fila] = suma / MAX_ASIGNATURAS;
+            medias[fila] = suma / MAX_MATERIAS;
         }
         return medias;
     }
 
-    /**
-     *  
-     *  Calcular la nota media por asignatura
-     *  Recorrido por columnas
-     * 
-     */
-    public double[] calcularMediaPorAsignatura()
+   
+    public double[] calcularMediaPorMATERIAS()
     {
-        double[] medias = new double[MAX_ASIGNATURAS];
+        double[] medias = new double[MAX_MATERIAS];
         for (int col = 0; col < notas[0].length; col++)  {
             double suma = 0.0;
             for (int fila = 0; fila < notas.length; fila++)    {
                 suma += notas[fila][col];
             }
-            medias[col] =  suma / MAX_ESTUDIANTES ;
+            medias[col] =  suma / MAX_ESTUDANTES ;
         }
         return medias;
     }
 
-    /**
-     *  @param alumno nº de alumno  
-     *
-     */
-    public int suspensosDelAlumno(int alumno)
+    
+    public int suspensoesDeAluno(int aluno)
     {
-        if (alumno < 0 || alumno >= notas.length) {
-            throw new IllegalArgumentException("Error en nº alumno");
+        if (aluno < 0 || aluno >= notas.length) {
+            throw new IllegalArgumentException("Error em nº alumno");
         }
-        int suspensos = 0;
-        for (int col = 0; col < notas[alumno].length; col++) {
-            if (notas[alumno][col] < 5)  {
-                suspensos ++;
+        int suspensoes = 0;
+        for (int col = 0; col < notas[aluno].length; col++) {
+            if (notas[aluno][col] < 5)  {
+                suspensoes ++;
             }
         }
-        return suspensos;
+        return suspensoes;
 
     }
 
     /**
-     *  @param asignatura nº de asignatura  
+     * @param MATERIAS nº de assinatura  
      *
      */
-    public int aprobadosEnAsignatura(int asignatura)
+
+    public int aprovadosnamateria(int MATERIAS)
     {
-        if (asignatura < 0 || asignatura >= notas[0].length) {
-            throw new IllegalArgumentException("Error en nº asignatura");
+        if (MATERIAS < 0 || matéria >= notas[0].length) {
+            throw new Excecaodeargumentoilegal("Error em nº matéria");
         }
-        int aprobados = 0;
+        int aprovados = 0;
         for (int fila = 0; fila < notas.length; fila++)   {
-            if (notas[fila][asignatura] >= 5)  {
-                aprobados ++;
+            if (notas[fila][MATERIAS] >= 5)  {
+                aprovados ++;
             }
         }
-        return aprobados;
+        return aprovados;
 
     }
 
     /**
      * 
      */
-    public static char[][] ejemploRagged() {
+    public static char[][] exemploirregular() {
         int[] longitudFilas = {4, 2, 5, 6};
-        char[][] ragged = new char[4][];
-        for (int fila = 0; fila < ragged.length; fila++) {
-            ragged[fila] = new char[longitudFilas[fila]];
-            for (int col = 0; col < ragged[fila].length; col++)  {
-                ragged[fila][col] = 'X';
+        char[][] irregular = new char[4][];
+        for (int fila = 0; fila < irregular.length; fila++) {
+            irregular[fila] = new char[longitudFilas[fila]];
+            for (int col = 0; col < irregular[fila].length; col++)  {
+                irregular[fila][col] = 'X';
             }
         }
-        return ragged;
+        return irregular;
 
     }
 
-    /**
-     * Código para probar la clase Curso
-     */
+    
     public static void main(String[] args) {
         Curso curso = new Curso();
         curso.escribir();
-        double[] mediasPorAlumno = curso.calcularMediaPorAlumno();
-        System.out.println("Media por alumno");
+        double[] mediasPorAlumno = curso.calcularMediaPorAluno();
+        System.out.println("Media por aluno");
         System.out.println(Arrays.toString(mediasPorAlumno));
-        double[] mediasPorAsignatura = curso.calcularMediaPorAsignatura();
-        System.out.println("Media por asignatura");
-        System.out.println(Arrays.toString(mediasPorAsignatura));
-        int alumno = 7;
-        System.out.println("Suspensos del alumno " + alumno +
-            " = " + curso.suspensosDelAlumno(alumno));
-        int asignatura = 4;
-        System.out.println("Aprobados en asignatura " +
-            asignatura + " = " + curso.aprobadosEnAsignatura(asignatura));
+        double[] mediasPorMATERIAS = curso.calcularMediaPorMATERIAS();
+        System.out.println("Media por MATERIAS");
+        System.out.println(Arrays.toString(mediasPorMATERIAS));
+        int aluno = 7;
+        System.out.println("suspensoes de aluno " + aluno +
+            " = " + curso.suspensoesDeAluno(aluno));
+        int MATERIAS = 4;
+        System.out.println("Aprovados em MATERIAS " +
+        MATERIAS + " = " + curso.aprovadosnamateria(MATERIAS));
 
-        System.out.println("Ejemplo array desigual (ragged) ");
-        char[][] ragged = Curso.ejemploRagged();
-        for (int fila = 0; fila < ragged.length; fila++)   {
-            for (int col = 0; col < ragged[fila].length; col++)  {
-                System.out.print(ragged[fila][col]);
+        System.out.println("Exemplo array desigual (irregular) ");
+        char[][] irregular = Curso.exemploirregular();
+        for (int fila = 0; fila < irregular.length; fila++)   {
+            for (int col = 0; col < irregular[fila].length; col++)  {
+                System.out.print(irregular[fila][col]);
             }
             System.out.println();
         }
